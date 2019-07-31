@@ -1,72 +1,43 @@
 <template>
   <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        node-vue-farm
-      </h1>
-      <h2 class="subtitle">
-        My amazing Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
+    <h1>🌽 Node Farm 🥦</h1>
+    <div class="cards-container">
+      <Product 
+        v-for="product in products"
+        :key="product.id"
+        :product="product"
+        @click.native="openProduct(product.id)"/>
     </div>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import Product from '~/components/productOverview.vue'
 
 export default {
   components: {
-    Logo
+    Product
+  },
+  computed: {
+    products() {
+      return this.$store.getters.getProducts
+    }
+  },
+  methods: {
+    openProduct(id) {
+      this.$router.push(`/product/${id}`);
+    }
   }
 }
 </script>
 
-<style>
+    <style>
 .container {
+  width: 95rem;
   margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
 
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+.cards-container {
+  margin-top: 8rem;
 }
 </style>
